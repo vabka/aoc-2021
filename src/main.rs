@@ -1,3 +1,7 @@
 fn main() {
-    println!("Hello, world!");
+    solve_day_1();
+}
+
+
+fn solve_day_1() {
 }
