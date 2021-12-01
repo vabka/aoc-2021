@@ -10,19 +10,39 @@ fn solve_day_1() {
     println!("Result of part 1: {result1}");
     let result2 = solve_day_1_part_2(&measurements);
     println!("Result of part 2: {result2}");
+    let result3 = solve_day_1_part_2_windowless(&measurements);
+    println!("Alternative result of part 2: {result3}");
 }
 fn solve_day_1_part_1(puzzle_input: &Vec<i32>) -> u32 {
-    get_increases_count(puzzle_input)
+    get_growth_count(puzzle_input)
 }
 fn solve_day_1_part_2(puzzle_input: &Vec<i32>) -> u32 {
     let moving_sum: Vec<i32> = puzzle_input
         .windows(3)
         .map(|wnd| wnd.iter().sum())
         .collect();
-    get_increases_count(&moving_sum)
+    get_growth_count(&moving_sum)
 }
 
-fn get_increases_count<T: Ord>(measurements: &Vec<T>) -> u32 {
+fn solve_day_1_part_2_windowless(puzzle_input: &Vec<i32>) -> u32 {
+    let mut increases: u32 = 0;
+    let mut prev: Option<i32> = None;
+    
+    let mut i = 0;
+    while i < puzzle_input.len()-2 {
+        if let Some(n) = prev {
+            if puzzle_input[i + 2] > n {
+                increases += 1;
+            }
+        }
+        prev = Some(puzzle_input[i]);
+        i += 1;
+    }
+    
+    increases
+}
+
+fn get_growth_count<T: Ord, Collection: IntoIterator<Item = T>>(measurements: Collection) -> u32 {
     let mut previous = None;
     let mut increases: u32 = 0;
     for current_measurement in measurements {
