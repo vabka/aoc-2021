@@ -37,7 +37,7 @@ fn get_increases_count<T: Ord>(measurements: &Vec<T>) -> u32 {
 }
 
 fn get_raw_measurements() -> Vec<i32> {
-    println!("Give me your input:");
+    println!("Give me your input (send ^D when complete):");
     let measurements = {
         let mut measurements: Vec<i32> = vec![];
         let mut input: String = read!();
